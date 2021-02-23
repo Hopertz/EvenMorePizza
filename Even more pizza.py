@@ -10,33 +10,43 @@ class MainProgram:
         while i < evenmorepizza.available_pizza:
             pizzaindx = []
             if evenmorepizza.team_of_two != 0:
-                pizzaindx.append(evenmorepizza.pizzaIng[i].id)
-                pizzaindx.append(evenmorepizza.pizzaIng[i + 1].id)
-                delivaries.append(Delivery(2, pizzaindx))
-                output.Delivery = delivaries
-                output.DeliveredPizza += 2
-                evenmorepizza.team_of_two -= 1
-                i += 2
-                continue
+                try:
+                  pizzaindx.append(evenmorepizza.pizzaIng[i].id)
+                  pizzaindx.append(evenmorepizza.pizzaIng[i + 1].id)
+                  delivaries.append(Delivery(2, pizzaindx))
+                  output.Delivery = delivaries
+                  evenmorepizza.team_of_two -= 1
+                  i += 2
+                  continue
+                except IndexError:
+                    pass
             elif evenmorepizza.team_of_three != 0:
-                pizzaindx.append(evenmorepizza.pizzaIng[i].id)
-                pizzaindx.append(evenmorepizza.pizzaIng[i + 1].id)
-                delivaries.append(Delivery(3, pizzaindx))
-                output.Delivery = delivaries
-                output.DeliveredPizza += 3
-                evenmorepizza.team_of_three -= 1
-                i += 3
-                continue
+                try:
+                  pizzaindx.append(evenmorepizza.pizzaIng[i].id)
+                  pizzaindx.append(evenmorepizza.pizzaIng[i + 1].id)
+                  pizzaindx.append(evenmorepizza.pizzaIng[i + 2].id)
+                  delivaries.append(Delivery(3, pizzaindx))
+                  output.Delivery = delivaries
+                  evenmorepizza.team_of_three -= 1
+                  i += 3
+                  continue
+                except IndexError:
+                    pass
             elif evenmorepizza.team_of_four != 0:
-                pizzaindx.append(evenmorepizza.pizzaIng[i].id)
-                pizzaindx.append(evenmorepizza.pizzaIng[i + 1].id)
-                delivaries.append(Delivery(4, pizzaindx))
-                output.Delivery = delivaries
-                output.DeliveredPizza += 4
-                evenmorepizza.team_of_four -= 1
-                i += 4
-                continue
+                try:
+                   pizzaindx.append(evenmorepizza.pizzaIng[i].id)
+                   pizzaindx.append(evenmorepizza.pizzaIng[i + 1].id)
+                   pizzaindx.append(evenmorepizza.pizzaIng[i + 2].id)
+                   pizzaindx.append(evenmorepizza.pizzaIng[i + 3].id)
+                   delivaries.append(Delivery(4, pizzaindx))
+                   output.Delivery = delivaries
+                   evenmorepizza.team_of_four -= 1
+                   i += 4
+                   continue
+                except IndexError:
+                    pass
             i += 1
+        output.DeliveredPizza = len(delivaries)
         return output
 
     @staticmethod
@@ -98,6 +108,6 @@ class PizzaIng:
 
 
 program = MainProgram()
-output = program.ReadInputFile('a_example')
+output = program.ReadInputFile('e_many_teams.in')
 new_output = program.PizzaDelivery(output)
 program.WriteOutputFile(new_output)
